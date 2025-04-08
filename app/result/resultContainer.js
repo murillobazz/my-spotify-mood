@@ -1,12 +1,14 @@
 'use client';
 
-import { getToken, getRecentTopArtists } from "../lib/helpers";
+import { getToken, getRecentTopArtists, getUserProfile } from "../lib/helpers";
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation';
+import ResultCard from "./resultCard";
 
-export default function ResultList() {
+export default function ResultContainer() {
   const params = useSearchParams();
   const [artists, setArtists] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const code = params.get('code');
@@ -17,20 +19,23 @@ export default function ResultList() {
         await getToken(code);
         let {items} = await getRecentTopArtists();
         setArtists(items);
+
+        let user = await getUserProfile();
+        setUser(user);
       }
 
       fetchData();
-      console.log(artists);
     }
   }, []) // useEffect is called when user gets back from authentication
 
   useEffect(() => {
-    console.log("Artists updated:", artists);
   }, [artists]);
 
 
   return (
     <>
+      <ResultCard user={user}></ResultCard>
+
       {artists && artists.map((item) => {
         return (
           <li key={item.id}>{item.name}</li>
