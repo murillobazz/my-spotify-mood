@@ -9,5 +9,5 @@ export default function ResultCard({user}) {
     )
   }
 
-  return <p>User not found</p>
+  // return <p>User not found</p>
 }

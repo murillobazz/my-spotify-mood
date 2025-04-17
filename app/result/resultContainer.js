@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import ResultCard from "./resultCard";
 
-export default function ResultContainer() {
+export default function   ResultContainer() {
   const params = useSearchParams();
   const [artists, setArtists] = useState([]);
   const [user, setUser] = useState(null);
@@ -35,12 +35,15 @@ export default function ResultContainer() {
   return (
     <>
       <ResultCard user={user}></ResultCard>
-
+      <p>you are on a
       {artists && artists.map((item) => {
+        // if (item.genres.length > 0) return;
         return (
-          <li key={item.id}>{item.name}</li>
+          <span key={item.id}> {item.genres[0]} </span>
         )
       })}
+      mood
+      </p>
     </>
   );
 }

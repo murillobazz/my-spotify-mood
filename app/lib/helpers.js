@@ -106,4 +106,4 @@ const getUserProfile = async () => {
   return data;
 }
 
-export {requestSpotifyAuth, getToken, getRecentTopArtists, getUserProfile};
+export { requestSpotifyAuth, getToken, getRecentTopArtists, getUserProfile };
