@@ -83,7 +83,20 @@ const getToken = async (code) => {
 const getRecentTopArtists = async () => {
   let accessToken = localStorage.getItem('access_token');
 
-  const response = await fetch('https://api.spotify.com/v1/me/top/artists?time_range=short_term', {
+  const response = await fetch(`https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=6`, {
+    headers: {
+      Authorization: 'Bearer ' + accessToken
+    }
+  });
+
+  const data = await response.json();
+  return data;
+}
+
+const getRecommendations = async (artistsIds) => {
+  let accessToken = localStorage.getItem('access_token');
+
+  const response = await fetch(`https://api.spotify.com/v1/recommendations?limit=100&seed_artists=${artistsIds}`, {
     headers: {
       Authorization: 'Bearer ' + accessToken
     }
@@ -106,4 +119,4 @@ const getUserProfile = async () => {
   return data;
 }
 
-export { requestSpotifyAuth, getToken, getRecentTopArtists, getUserProfile };
+export { requestSpotifyAuth, getToken, getRecentTopArtists, getRecommendations, getUserProfile };
